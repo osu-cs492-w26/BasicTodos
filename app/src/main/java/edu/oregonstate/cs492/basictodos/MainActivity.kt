@@ -1,6 +1,10 @@
 package edu.oregonstate.cs492.basictodos
 
 import android.os.Bundle
+import android.text.TextUtils
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,5 +20,23 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val todos = mutableListOf<String>()
+
+        val addTodoBtn: Button = findViewById(R.id.btn_add_todo)
+        val todoEntryET: EditText = findViewById(R.id.et_todo_entry)
+        val todoListTV: TextView = findViewById(R.id.tv_todo_list)
+//        todoListTV.text = "Finish todo app"
+
+        addTodoBtn.setOnClickListener {
+            val newTodo = todoEntryET.text.toString()
+            if (!TextUtils.isEmpty(newTodo)) {
+                todos.add(0, newTodo)
+                todoListTV.text = todos.joinToString(separator = "\n\n")
+                todoEntryET.setText("")
+            }
+        }
     }
 }
+
+// https://github.com/osu-cs492-w26/assignment-1-robwhess
